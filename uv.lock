@@ -138,6 +138,18 @@ wheels = [
 ]
 
 [[package]]
+name = "fastapi-throttle"
+version = "0.1.8"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "fastapi" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b3/ef/b71c86ced9cabc075ed4629178960ccdaf55b56f37a5392c574b2fa4ad35/fastapi_throttle-0.1.8.tar.gz", hash = "sha256:b0867be26bf3335cae0ecb7069c5cb7d246e14dbbd51329050af7043435370ce", size = 7970, upload-time = "2025-08-26T13:13:28.554Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/15/81/972fa6f3fd2b45fa11fd7269aa24a242dd51c093ed45937f201224cc7e85/fastapi_throttle-0.1.8-py3-none-any.whl", hash = "sha256:ba04991eae1795b13b1d3a514a6967ba4588218dc92375e4c45e12cdebe160e2", size = 8649, upload-time = "2025-08-26T13:13:27.78Z" },
+]
+
+[[package]]
 name = "filelock"
 version = "3.19.1"
 source = { registry = "https://pypi.org/simple" }
@@ -504,6 +516,18 @@ wheels = [
 ]
 
 [[package]]
+name = "pytest-env"
+version = "1.1.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pytest" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/1f/31/27f28431a16b83cab7a636dce59cf397517807d247caa38ee67d65e71ef8/pytest_env-1.1.5.tar.gz", hash = "sha256:91209840aa0e43385073ac464a554ad2947cc2fd663a9debf88d03b01e0cc1cf", size = 8911, upload-time = "2024-09-17T22:39:18.566Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/de/b8/87cfb16045c9d4092cfcf526135d73b88101aac83bc1adcf82dfb5fd3833/pytest_env-1.1.5-py3-none-any.whl", hash = "sha256:ce90cf8772878515c24b31cd97c7fa1f4481cd68d588419fd45f10ecaee6bc30", size = 6141, upload-time = "2024-09-17T22:39:16.942Z" },
+]
+
+[[package]]
 name = "python-dotenv"
 version = "1.1.1"
 source = { registry = "https://pypi.org/simple" }
@@ -597,6 +621,7 @@ dependencies = [
     { name = "alembic" },
     { name = "asyncpg" },
     { name = "fastapi" },
+    { name = "fastapi-throttle" },
     { name = "greenlet" },
     { name = "httpx" },
     { name = "pydantic" },
@@ -612,6 +637,7 @@ dev = [
     { name = "mypy" },
     { name = "pre-commit" },
     { name = "pytest" },
+    { name = "pytest-env" },
 ]
 
 [package.metadata]
@@ -619,6 +645,7 @@ requires-dist = [
     { name = "alembic", specifier = ">=1.16.5" },
     { name = "asyncpg", specifier = ">=0.30.0" },
     { name = "fastapi", specifier = ">=0.116.1" },
+    { name = "fastapi-throttle", specifier = ">=0.1.8" },
     { name = "greenlet", specifier = ">=3.2.4" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "pydantic", specifier = ">=2.11.7" },
@@ -634,6 +661,7 @@ dev = [
     { name = "mypy", specifier = ">=1.17.1" },
     { name = "pre-commit", specifier = ">=4.3.0" },
     { name = "pytest", specifier = ">=8.4.1" },
+    { name = "pytest-env", specifier = ">=1.1.5" },
 ]
 
 [[package]]

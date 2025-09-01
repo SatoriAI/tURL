@@ -10,7 +10,7 @@ router = APIRouter()
 
 
 @router.get(
-    "/{code}",
+    "/d/{code}",
     summary="Redirects to the original URL.",
     tags=["Encryption"],
     status_code=status.HTTP_308_PERMANENT_REDIRECT,

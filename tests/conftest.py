@@ -8,7 +8,7 @@ from httpx import ASGITransport, AsyncClient
 from source.app import create_app
 
 
-@pytest.fixture(name="app", scope="session")
+@pytest.fixture(name="app")
 def fixture_app() -> FastAPI:
     return create_app()
 

@@ -8,6 +8,7 @@ dependencies = [
     "alembic>=1.16.5",
     "asyncpg>=0.30.0",
     "fastapi>=0.116.1",
+    "fastapi-throttle>=0.1.8",
     "greenlet>=3.2.4",
     "httpx>=0.28.1",
     "pydantic>=2.11.7",
@@ -23,10 +24,17 @@ dev = [
     "mypy>=1.17.1",
     "pre-commit>=4.3.0",
     "pytest>=8.4.1",
+    "pytest-env>=1.1.5",
 ]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+
+[tool.pytest_env]
+DOMAIN = "http://localhost:8010"
+RATE_LIMIT_REQUESTS = 2
+RATE_LIMIT_WINDOW_SECONDS = 60
+DATABASE_URL = "postgresql://turl:quick-tree-runs-37@localhost:5432/turl"
 
 [tool.ruff]
 line-length = 120
