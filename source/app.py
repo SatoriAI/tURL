@@ -12,7 +12,7 @@ def create_app() -> FastAPI:
     application = FastAPI(
         name="tURL",
         description="Tiny microservice for shortening URLs.",
-        docs_url="/swagger",
+        docs_url=None,
         redoc_url="/docs",
         dependencies=[
             Depends(RateLimiter(times=settings.rate_limit_requests, seconds=settings.rate_limit_window_seconds)),
