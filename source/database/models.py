@@ -52,24 +52,26 @@ class Detail(Base):
 
     # Schedule
     lifetime: Mapped[int | None] = mapped_column(Integer())  # positive integer or empty (= infinite lifetime)
-    registered: Mapped[date] = mapped_column(Date(), server_default=func.now(), nullable=False)
-    modified: Mapped[date] = mapped_column(Date(), onupdate=func.now(), nullable=True)
+    registered: Mapped[date] = mapped_column(Date(), server_default=func.now(), nullable=False)  # pylint: disable=not-callable
+    modified: Mapped[date] = mapped_column(Date(), onupdate=func.now(), nullable=True)  # pylint: disable=not-callable
 
     # SQL Alchemy Relations
     link: Mapped["Link"] = relationship(back_populates="detail")
 
     @property
-    def expires_at(self) -> date:
+    def expires_at(self) -> date | None:
+        if self.lifetime is None:
+            return None
         return self.registered + timedelta(days=self.lifetime)
 
     @property
-    def expires_in(self) -> int:
-        if self.lifetime is None:
-            return settings.infinite_lifetime
+    def expires_in(self) -> int | None:
+        if not self.expires_at:
+            return None
         return (self.expires_at - date.today()).days
 
     @property
     def expired(self) -> bool:
-        if self.lifetime is None:
+        if not self.expires_at:
             return False
         return date.today() > self.expires_at

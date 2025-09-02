@@ -19,7 +19,8 @@ router = APIRouter()
         status.HTTP_404_NOT_FOUND: {"description": "There's no `link` assigned to this code."},
     },
 )
-async def decode(request: Request, code: str, db_session: AsyncSession = Depends(get_session)):
+# pylint: disable=unused-argument
+async def decode(request: Request, code: str, db_session: AsyncSession = Depends(get_session)) -> RedirectResponse:
     url = await db_session.scalar(select(Link.url).where(Link.code == code))
 
     if url is None:

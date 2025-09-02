@@ -33,10 +33,10 @@ class EncodeResponse(BaseModel):
         }
     },
 )
-async def encode(
+async def encode(  # pylint: disable=unused-argument
     request: Request, payload: EncodeRequest, db_session: AsyncSession = Depends(get_session)
 ) -> EncodeResponse:
-    for _ in range(settings.max_attempts):  # Cheaper than making a database call
+    for _ in range(settings.max_code_generation_attempts):  # Cheaper than making a database call
         candidate = code(length=payload.length)
 
         link = Link(
@@ -48,7 +48,7 @@ async def encode(
 
             try:
                 await db_session.flush()
-                return EncodeResponse(url=link.encoded)
+                return EncodeResponse(url=HttpUrl(link.encoded))
             except IntegrityError:
                 await db_session.rollback()
 

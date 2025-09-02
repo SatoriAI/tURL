@@ -14,27 +14,38 @@ dependencies = [
     "pydantic>=2.11.7",
     "pydantic-settings>=2.10.1",
     "pytest-asyncio>=1.1.0",
+    "pytest-cov>=6.2.1",
     "sqlalchemy>=2.0.43",
     "uvicorn>=0.35.0",
 ]
 
 [dependency-groups]
 dev = [
+    "coverage>=7.10.6",
     "faker>=37.6.0",
     "mypy>=1.17.1",
     "pre-commit>=4.3.0",
+    "pylint>=3.3.8",
     "pytest>=8.4.1",
     "pytest-env>=1.1.5",
+    "pytest-xdist>=3.8.0",
 ]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
+addopts = "--cov --cov-report term-missing --cov-fail-under=85"
 
 [tool.pytest_env]
 DOMAIN = "http://localhost:8010"
 RATE_LIMIT_REQUESTS = 2
 RATE_LIMIT_WINDOW_SECONDS = 60
+MAX_CODE_GENERATION_ATTEMPTS = 2
 DATABASE_URL = "postgresql://turl:quick-tree-runs-37@localhost:5432/turl"
+
+[tool.coverage.run]
+source = [
+    "source",
+]
 
 [tool.ruff]
 line-length = 120
@@ -61,16 +72,31 @@ known-first-party = [
     "source",
 ]
 
+[tool.codespell]
+skip = [
+    "uv.lock"
+]
+
 [tool.mypy]
 mypy_path = "source/"
-#exclude = [
-#    "alembic/",
-#    "tests/",
-#]
-#plugins = [
-#    "mypy_django_plugin.main"
-#]
+plugins = [
+    "pydantic.mypy",
+    "sqlalchemy.ext.mypy.plugin"
+]
 ignore_missing_imports = true
 disallow_untyped_defs = true  # Requires annotations on functions
 warn_redundant_casts = true   # Flags unnecessary casts
 warn_unused_ignores = true    # Helps clean up # type: ignor
+
+[tool.pydantic-mypy]
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.pylint]
+max-line-length = 120
+disable = [
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "too-few-public-methods",
+]

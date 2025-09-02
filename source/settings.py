@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     database_url: str
 
     # Custom settings
-    max_attempts: int = 10
+    max_code_generation_attempts: int = 10
     infinite_lifetime: int = 1_000_000
 
 

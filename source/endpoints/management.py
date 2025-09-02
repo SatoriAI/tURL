@@ -24,14 +24,14 @@ class LinkInfo(BaseModel):
     registered: date
     modified: date | None
 
-    expires_at: date
-    expires_in: PositiveInt
+    expires_at: date | None
+    expires_in: PositiveInt | None
     expired: bool
 
 
 def populate_response_schema(link: Link) -> LinkInfo:
     return LinkInfo(
-        url=link.url,
+        url=HttpUrl(link.url),
         lifetime=link.detail.lifetime,
         registered=link.detail.registered,
         modified=link.detail.modified,
@@ -53,7 +53,8 @@ def populate_response_schema(link: Link) -> LinkInfo:
         },
     },
 )
-async def info(request: Request, code: str, db_session: AsyncSession = Depends(get_session)):
+# pylint: disable=unused-argument
+async def info(request: Request, code: str, db_session: AsyncSession = Depends(get_session)) -> LinkInfo:
     link = await db_session.scalar(select(Link).options(joinedload(Link.detail)).where(Link.code == code))
 
     if link is None:
@@ -75,7 +76,7 @@ async def info(request: Request, code: str, db_session: AsyncSession = Depends(g
         status.HTTP_404_NOT_FOUND: {"description": "There's no `link` assigned to this code."},
     },
 )
-async def extend(
+async def extend(  # pylint: disable=unused-argument
     request: Request, code: str, payload: ExtendRequest, db_session: AsyncSession = Depends(get_session)
 ) -> LinkInfo:
     async with db_session.begin():
@@ -94,7 +95,6 @@ async def extend(
             link.detail.lifetime = settings.infinite_lifetime
 
         await db_session.flush()
-
     await db_session.refresh(link.detail)
 
     return populate_response_schema(link=link)
