@@ -40,7 +40,7 @@ jobs:
           python-version: '3.13'
 
       - name: Run Pylint
-        run: uv pylint source tests
+        run: uv run pylint source tests
 
   mypy:
     name: MyPy Check
