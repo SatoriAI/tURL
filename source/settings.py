@@ -6,6 +6,7 @@ class Settings(BaseSettings):
 
     # Environment variables
     domain: str
+    frontend: str
     rate_limit_requests: int
     rate_limit_window_seconds: int
     database_url: str

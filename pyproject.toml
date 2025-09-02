@@ -38,6 +38,7 @@ addopts = "--cov --cov-report term-missing --cov-fail-under=85"
 
 [tool.pytest_env]
 DOMAIN = "http://localhost:8010"
+FRONTEND = "http://localhost:8080"
 RATE_LIMIT_REQUESTS = 2
 RATE_LIMIT_WINDOW_SECONDS = 60
 MAX_CODE_GENERATION_ATTEMPTS = 2
