@@ -15,7 +15,6 @@ router = APIRouter()
     tags=["Encryption"],
     status_code=status.HTTP_308_PERMANENT_REDIRECT,
     responses={
-        status.HTTP_308_PERMANENT_REDIRECT: {"description": "Successful redirection to the original URL."},
         status.HTTP_404_NOT_FOUND: {"description": "There's no `link` assigned to this code."},
     },
 )
