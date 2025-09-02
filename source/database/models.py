@@ -31,7 +31,7 @@ class Link(Base):
 
     @property
     def encoded(self) -> str:
-        return f"{settings.domain}/{self.code}"
+        return f"{settings.domain}/d/{self.code}"
 
 
 class Detail(Base):

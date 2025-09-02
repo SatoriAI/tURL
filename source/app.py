@@ -1,4 +1,5 @@
 from fastapi import Depends, FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi_throttle import RateLimiter
 
 from source.endpoints.decode import router as decode_router
@@ -17,6 +18,12 @@ def create_app() -> FastAPI:
         dependencies=[
             Depends(RateLimiter(times=settings.rate_limit_requests, seconds=settings.rate_limit_window_seconds)),
         ],
+    )
+
+    application.add_middleware(
+        CORSMiddleware,
+        allow_origins=[settings.cors_origins],
+        allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     )
 
     application.include_router(decode_router)

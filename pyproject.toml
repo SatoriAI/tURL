@@ -41,6 +41,7 @@ DOMAIN = "http://localhost:8010"
 RATE_LIMIT_REQUESTS = 2
 RATE_LIMIT_WINDOW_SECONDS = 60
 MAX_CODE_GENERATION_ATTEMPTS = 2
+CORS_ORIGINS="http://localhost:8080"
 DATABASE_URL = "postgresql://turl:quick-tree-runs-37@localhost:5432/turl"
 
 [tool.coverage.run]

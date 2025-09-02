@@ -8,7 +8,6 @@ from sqlalchemy.orm import joinedload
 
 from source.database.connection import get_session
 from source.database.models import Link
-from source.settings import settings
 
 router = APIRouter()
 
@@ -92,7 +91,7 @@ async def extend(  # pylint: disable=unused-argument
         if payload.lifetime:
             link.detail.lifetime = (link.detail.lifetime or 0) + payload.lifetime
         else:
-            link.detail.lifetime = settings.infinite_lifetime
+            link.detail.lifetime = None
 
         await db_session.flush()
     await db_session.refresh(link.detail)

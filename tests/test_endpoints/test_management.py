@@ -5,7 +5,6 @@ from fastapi import status
 from httpx import AsyncClient
 
 from source.database.models import Link
-from source.settings import settings
 
 
 async def test_info__success(
@@ -63,7 +62,7 @@ async def test_extend__success(  # pylint: disable=too-many-arguments, too-many-
 
     # Verify lifetime was updated correctly
     if lifetime is None:
-        assert response_data["lifetime"] == settings.infinite_lifetime  # Should be set to infinite lifetime
+        assert response_data["lifetime"] is None  # Should be set to infinite lifetime
     else:
         assert response_data["lifetime"] == random_lifetime + lifetime  # Should be original + extended
 
