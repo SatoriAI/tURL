@@ -1,0 +1,33 @@
+name: "Set Up Python Environment"
+description: "Checks out code, sets up Python and UV, and installs dependencies with caching."
+
+inputs:
+  python-version:
+    description: "The Python version to set up."
+    required: true
+    default: "3.13"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Set up UV
+      uses: astral-sh/setup-uv@v1
+      with:
+        version: "latest"
+
+    - name: Cache UV Dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/uv
+        key: ${{ runner.os }}-python-${{ inputs.python-version }}-uv-${{ hashFiles('**/pyproject.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-python-${{ inputs.python-version }}-uv-
+
+    - name: Install Dependencies
+      run: uv sync --group dev
+      shell: bash
