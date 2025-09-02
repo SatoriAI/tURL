@@ -6,6 +6,10 @@ dockerfilePath = "./Dockerfile"
 preDeployCommand = [
     "uv run --no-sync --no-dev alembic upgrade head"
 ]
-startCommand = "gunicorn -k uvicorn.workers.UvicornWorker source.app:app --bind 0.0.0.0:$PORT --workers $WORKERS"
+startCommand = """
+    sh -c '
+        gunicorn -k uvicorn.workers.UvicornWorker source.app:app --bind 0.0.0.0:$PORT --workers $WORKERS
+    '
+"""
 
 healthcheckPath = "/status"
