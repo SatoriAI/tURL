@@ -1,7 +1,7 @@
 from datetime import date
 
 from fastapi import APIRouter, Depends, HTTPException, Request, status
-from pydantic import BaseModel, HttpUrl, PositiveInt
+from pydantic import BaseModel, HttpUrl, NonNegativeInt, PositiveInt
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload
@@ -24,7 +24,7 @@ class LinkInfo(BaseModel):
     modified: date | None
 
     expires_at: date | None
-    expires_in: PositiveInt | None
+    expires_in: NonNegativeInt | None
     expired: bool
 
 
