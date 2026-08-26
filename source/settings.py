@@ -15,5 +15,10 @@ class Settings(BaseSettings):
     # Custom settings
     max_code_generation_attempts: int = 10
 
+    @property
+    def cors_origins_list(self) -> list[str]:
+        """CORS_ORIGINS is a comma-separated string; split it into the list CORSMiddleware expects."""
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+
 
 settings = Settings()
