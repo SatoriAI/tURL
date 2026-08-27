@@ -68,7 +68,9 @@ class Detail(Base):
     def expires_in(self) -> int | None:
         if not self.expires_at:
             return None
-        return (self.expires_at - date.today()).days
+        # Clamped at zero: once a link is expired there is no negative time left,
+        # and `expired` already carries that state.
+        return max(0, (self.expires_at - date.today()).days)
 
     @property
     def expired(self) -> bool:
