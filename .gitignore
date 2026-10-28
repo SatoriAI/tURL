@@ -208,3 +208,6 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Railway SDK, installed beside .railway/railway.ts
+.railway/node_modules/
